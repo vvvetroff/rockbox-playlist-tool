@@ -17,9 +17,6 @@ namespace RockBoxPlaylistToolTest
             var dirPath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\";
             ObservableCollection<SongData> collection = SongCollectionBuilder.Build(dirPath);
             Assert.AreEqual(2, collection.Count);
-            foreach (SongData song in collection) {
-                song.Print();
-            }
         }
         [TestMethod]
         public void BuildFromNull()
