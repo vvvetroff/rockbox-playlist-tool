@@ -13,6 +13,10 @@ namespace RockBoxPlaylistTool
         private string path;
         private ObservableCollection<SongData> items;
         private SongData selected;
+        public MusicViewModel()
+        {
+            items = new ObservableCollection<SongData>();
+        }
         public string Path 
         { 
             get { return path; } 

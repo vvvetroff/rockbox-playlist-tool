@@ -6,32 +6,14 @@
         xmlns:local="clr-namespace:RockBoxPlaylistTool"
         mc:Ignorable="d"
         Title="RockBoxPlaylistTool" Height="450" Width="800">
-    <Grid>
-        <Grid.Resources>
-            <Style TargetType="Button">
-                <Setter Property="FontSize" Value="30"/>
-
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-            </Style>
-            <Style TargetType="Label">
-                <Setter Property="FontSize" Value="30"/>
-
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="FontSize" Value="30"/>
-
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-            </Style>
-        </Grid.Resources>
-        <Menu HorizontalAlignment="Center" Height="24" VerticalAlignment="Top" Width="800">
-            <MenuItem Header="File" Height="24" Width="32">
-                <MenuItem Header="" />
-            </MenuItem>
-        </Menu>
-        <Button x:Name="btnLoadMusic" Content="..." HorizontalAlignment="Left" Margin="666,217,0,0" VerticalAlignment="Top" Height="67" Width="77"/>
-        <Label Content="Music Path: " HorizontalAlignment="Left" Margin="47,217,0,0" VerticalAlignment="Top" Height="67" Width="166"/>
-        <TextBox x:Name="txtMusic" Margin="218,217,151,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="67"/>
-        <StatusBar HorizontalAlignment="Center" Height="24" VerticalAlignment="Bottom" Width="800"/>
-    </Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Views.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <ContentControl Content="{Binding Model}">
+        
+    </ContentControl>
 </Window>

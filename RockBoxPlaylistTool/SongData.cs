@@ -12,6 +12,12 @@ namespace RockBoxPlaylistTool
         private string fileAlbum;
         private string fileTitle;
         private string filePath;
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { SetProperty(ref isSelected, value); }
+        }
         public string Artist
         {
             get { return fileArtist; }
@@ -20,6 +26,17 @@ namespace RockBoxPlaylistTool
         public string Album
         {
             get { return fileAlbum; }
+            set { SetProperty(ref fileAlbum, value); }
+        }
+        public string AlbumFormatted
+        {
+            get { 
+                if (!String.IsNullOrEmpty(fileAlbum) && fileAlbum.Length > 10)
+                {
+                    return fileAlbum.Substring(0,10) + "...";
+                }
+                return fileAlbum;
+            }
             set { SetProperty(ref fileAlbum, value); }
         }
         public string Title
@@ -38,6 +55,17 @@ namespace RockBoxPlaylistTool
             Console.WriteLine("Artist: " + this.Artist);
             Console.WriteLine("Album: " + this.Album);
             Console.WriteLine("Path: " + this.Path);
+        }
+        public SongData Clone()
+        {
+            var song = new SongData
+            {
+                Title = this.Title,
+                Artist = this.Artist,
+                Album = this.Album,
+                Path = this.Path
+            };
+            return song;
         }
     }
 }

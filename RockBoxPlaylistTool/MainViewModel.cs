@@ -11,11 +11,11 @@ namespace RockBoxPlaylistTool
     {
         private MusicViewModel musicViewModel;
         private PlaylistViewModel playlistViewModel;
-        private ICommand addToPlaylistCommand;
-        private ICommand removeFromPlaylistCommand;
-        private ICommand moveSongUpCommand;
-        private ICommand moveSongDownCommand;
-        private ICommand savePlaylistCommand;
+        private DelegateCommand addToPlaylistCommand;
+        private DelegateCommand removeFromPlaylistCommand;
+        private DelegateCommand moveSongUpCommand;
+        private DelegateCommand moveSongDownCommand;
+        private DelegateCommand savePlaylistCommand;
         private IFileWriter fileWriter;
         public MainViewModel(IFileWriter fileWriter)
         {
@@ -27,6 +27,31 @@ namespace RockBoxPlaylistTool
             moveSongDownCommand = new DelegateCommand(moveDownExecute, canMoveDownExecute);
             savePlaylistCommand = new DelegateCommand(saveExecute, canSaveExecute);
             this.fileWriter = fileWriter;
+            musicViewModel.PropertyChanged += MusicViewModel_PropertyChanged;
+            playlistViewModel.PropertyChanged += PlaylistViewModel_PropertyChanged;
+        }
+
+        private void PlaylistViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Selected")
+            {
+                removeFromPlaylistCommand.RaiseCanExecuteChanged();
+                moveSongUpCommand.RaiseCanExecuteChanged();
+                moveSongDownCommand.RaiseCanExecuteChanged();
+                savePlaylistCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private void MusicViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Selected")
+            {
+                addToPlaylistCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        public object Model { 
+            get { return this; } 
         }
         public MusicViewModel MusicViewModel { get { return musicViewModel; } }
         public PlaylistViewModel PlaylistViewModel { get { return playlistViewModel; } }
@@ -67,7 +92,11 @@ namespace RockBoxPlaylistTool
         }
         public void addExecute()
         {
-            playlistViewModel.AppendSong(musicViewModel.Selected);
+            foreach (var item in musicViewModel.Items)
+            {
+                if (!item.IsSelected) { continue; }
+                playlistViewModel.AppendSong(item);
+            }
         }
         public void removeExecute()
         {
