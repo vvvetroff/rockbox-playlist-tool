@@ -72,18 +72,5 @@ namespace RockBoxPlaylistToolTest
             Assert.AreEqual("test3", tempSong.Album);
             Assert.AreEqual("test4", tempSong.Path);
         }
-
-        [TestMethod]
-        public void TestDummy()
-        {
-            IFileWriter fileWriter = Substitute.For<IFileWriter>();
-            string path = null;
-            fileWriter.When(
-                x => x.Dummy(Arg.Do<string>(xx => path = xx))
-                ).Do(x => { });
-
-            fileWriter.Dummy("blah");
-            Assert.AreEqual("blah", path);
-        }
     }
 }

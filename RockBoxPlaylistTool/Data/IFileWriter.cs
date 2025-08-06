@@ -10,6 +10,6 @@ namespace RockBoxPlaylistTool.Data
     public interface IFileWriter
     {
         bool SavePlaylist(string path, ObservableCollection<SongData> items);
-        bool Dummy(string dummy);
+        //bool Dummy(string dummy);
     }
 }
