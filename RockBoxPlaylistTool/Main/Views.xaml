@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:RockBoxPlaylistTool"
+                    xmlns:localMain="clr-namespace:RockBoxPlaylistTool.Main"
+                    xmlns:localMusic="clr-namespace:RockBoxPlaylistTool.Music"
+                    xmlns:localPlaylist="clr-namespace:RockBoxPlaylistTool.Playlist"
+                    xmlns:localData="clr-namespace:RockBoxPlaylistTool.Data"
+                    >
+    <DataTemplate DataType="{x:Type localMusic:MusicViewModel}">
+        <localMusic:MusicUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type localPlaylist:PlaylistViewModel}">
+        <localPlaylist:PlaylistUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type localMain:MainViewModel}">
+        <localMain:MainUserControl/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type localData:SongData}">
+        <localData:SongDataUserControl/>
+    </DataTemplate>
+</ResourceDictionary>

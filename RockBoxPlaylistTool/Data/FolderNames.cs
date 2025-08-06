@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Data
 {
     internal class FolderNames
     {

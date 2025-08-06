@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Data
 {
     public class SongData : BindableBase
     {
@@ -12,6 +12,12 @@ namespace RockBoxPlaylistTool
         private string fileAlbum;
         private string fileTitle;
         private string filePath;
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { SetProperty(ref isSelected, value); }
+        }
         public string Artist
         {
             get { return fileArtist; }
@@ -34,10 +40,21 @@ namespace RockBoxPlaylistTool
         }
         public void Print()
         {
-            Console.WriteLine("Title: " + this.Title);
-            Console.WriteLine("Artist: " + this.Artist);
-            Console.WriteLine("Album: " + this.Album);
-            Console.WriteLine("Path: " + this.Path);
+            Console.WriteLine("Title: " + Title);
+            Console.WriteLine("Artist: " + Artist);
+            Console.WriteLine("Album: " + Album);
+            Console.WriteLine("Path: " + Path);
+        }
+        public SongData Clone()
+        {
+            var song = new SongData
+            {
+                Title = Title,
+                Artist = Artist,
+                Album = Album,
+                Path = Path
+            };
+            return song;
         }
     }
 }

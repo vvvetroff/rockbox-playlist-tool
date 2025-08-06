@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Data
 {
     public class SongCollectionBuilder
     {
@@ -15,14 +15,22 @@ namespace RockBoxPlaylistTool
             ObservableCollection<SongData> collection = [];
             if (string.IsNullOrEmpty(path)) { return collection; }
 
-            // TODO: Change this???
-            // I feel like if you were to open ONLY a music file (not a dir of music files),
-            // then the ObservableCollection should contain just the one file.
+            // HACK: I think this is unnecessary; the dialog looks at dir.
+            //var oneFile = new FileInfo(path);
+            //if (oneFile.Exists)
+            //{
+            //    var song = SongDataBuilder.Build(oneFile.FullName);
+            //    if (song != null) { collection.Add(song); }
+            //}
+            
             DirectoryInfo dir = new(path);
             if (!dir.Exists) { return collection; }
 
             foreach (FileInfo file in dir.GetFiles()) {
-                collection.Add(SongDataBuilder.Build(file.FullName));
+                var item = SongDataBuilder.Build(file.FullName);
+                if (item != null) { 
+                    collection.Add(item);
+                }
             }
             return collection;
         }

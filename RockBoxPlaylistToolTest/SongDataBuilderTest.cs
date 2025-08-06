@@ -1,4 +1,4 @@
-﻿using RockBoxPlaylistTool;
+﻿using RockBoxPlaylistTool.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void BuildMp3()
         {
-            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\MP3File.mp3";
+            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\MP3File.mp3";
             var song = SongDataBuilder.Build(filepath);
 
             Assert.AreEqual("Trinity", song.Title);
@@ -24,7 +24,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void BuildFlac()
         {
-            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\FLACFile.flac";
+            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\FLACFile.flac";
             var song = SongDataBuilder.Build(filepath);
 
             Assert.AreEqual("California Love (original version)", song.Title);
