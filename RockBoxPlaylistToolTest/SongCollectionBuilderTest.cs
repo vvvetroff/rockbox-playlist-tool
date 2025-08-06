@@ -1,4 +1,4 @@
-﻿using RockBoxPlaylistTool;
+﻿using RockBoxPlaylistTool.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void BuildFromDir()
         {
-            var dirPath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\";
+            var dirPath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\";
             ObservableCollection<SongData> collection = SongCollectionBuilder.Build(dirPath);
             Assert.AreEqual(2, collection.Count);
         }
@@ -34,7 +34,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void BuildFromInvalid()
         {
-            var invalidDirPath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\FLACFile.flac";
+            var invalidDirPath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\FLACFile.flac";
             ObservableCollection<SongData> collection = SongCollectionBuilder.Build(invalidDirPath);
             Assert.AreEqual(0, collection.Count);
         }

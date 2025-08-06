@@ -1,11 +1,13 @@
-﻿using System;
+﻿using RockBoxPlaylistTool.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Playlist
 {
     public class PlaylistViewModel : BindableBase
     {
@@ -17,6 +19,7 @@ namespace RockBoxPlaylistTool
         { 
             items = new ObservableCollection<SongData>();
             selectedItems = new ObservableCollection<SongData>();
+            path = ConfigurationManager.AppSettings[FolderNames.PlaylistsDir];
         }
         public string Path 
         { 
@@ -40,41 +43,36 @@ namespace RockBoxPlaylistTool
         }
         public bool AppendSong(SongData song)
         {
-            if (song == null) return false;
-            // creates shallow copy of selected songs
+            if (song == null) { return false; }
+
             items.Add(song.Clone());
             return true;
         }
         public bool RemoveSong(SongData song)
         {
-            if (song == null) return false;
+            if (song == null) { return false; }
+
             items.Remove(song);
             return true;
         }
         public bool MoveSongUp(SongData song)
-        {  
-            if (song == null) return false;
+        {
+            if (song == null) { return false; }
+
             int idx = items.IndexOf(song);
-            if (idx == -1 || idx == 0) return false;
-            items.Remove(song);
-            selectedItems.Remove(song);
-            song.IsSelected = false;
-            items.Insert(idx - 1, song);
-            song.IsSelected = true;
-            selectedItems.Add(song);
+            if (idx == -1 || idx == 0) { return false; }
+
+            items.Move(idx, idx-1);
             return true; 
         }
         public bool MoveSongDown(SongData song)
-        {  
-            if (song == null) return false;
+        {
+            if (song == null) { return false; }
+
             int idx = items.IndexOf(song);
-            if (idx == -1 || idx == items.Count - 1) return false;
-            items.Remove(song);
-            selectedItems.Remove(song);
-            song.IsSelected = false;
-            items.Insert(idx + 1, song);
-            song.IsSelected = true;
-            selectedItems.Add(song);
+            if (idx == -1 || idx == items.Count - 1) { return false; }
+
+            items.Move(idx, idx+1);
             return true; 
         }
         public bool SavePlaylist()

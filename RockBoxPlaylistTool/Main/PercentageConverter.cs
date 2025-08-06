@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Main
 {
     public class PercentageConverter : IValueConverter
     {
         public object Convert(object value, Type targettype, object parameter, CultureInfo culture)
         {
             if (value != null && parameter != null) {
-                var width = Double.Parse(value.ToString());
-                var percent = Double.Parse(parameter.ToString());
+                var width = double.Parse(value.ToString());
+                var percent = double.Parse(parameter.ToString());
                 return width * percent;
             }
             return value;

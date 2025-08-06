@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Data
 {
     public interface IFileWriter
     {
         bool SavePlaylist(string path, ObservableCollection<SongData> items);
-        bool Dummy(string bruh);
+        bool Dummy(string dummy);
     }
 }

@@ -10,6 +10,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\browse.png" />
+    <None Remove="images\down.png" />
+    <None Remove="images\left.png" />
+    <None Remove="images\right.png" />
+    <None Remove="images\save.png" />
+    <None Remove="images\up.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\browse.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\down.png" />
+    <Resource Include="images\left.png" />
+    <Resource Include="images\right.png" />
+    <Resource Include="images\save.png" />
+    <Resource Include="images\up.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Windows.Forms">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Windows.Forms.dll</HintPath>
     </Reference>

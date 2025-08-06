@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Music
 {
     /// <summary>
-    /// Interaction logic for SongDataUserControl.xaml
+    /// Interaction logic for MusicUserControl.xaml
     /// </summary>
-    public partial class SongDataUserControl : System.Windows.Controls.UserControl
+    public partial class MusicUserControl : System.Windows.Controls.UserControl
     {
-        public SongDataUserControl()
+        public MusicUserControl()
         {
             InitializeComponent();
         }

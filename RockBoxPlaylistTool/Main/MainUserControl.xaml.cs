@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Main
 {
     /// <summary>
     /// Interaction logic for MainUserControl.xaml

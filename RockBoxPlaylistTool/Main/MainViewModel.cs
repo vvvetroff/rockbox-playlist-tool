@@ -1,11 +1,14 @@
-﻿using System;
+﻿using RockBoxPlaylistTool.Data;
+using RockBoxPlaylistTool.Music;
+using RockBoxPlaylistTool.Playlist;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Main
 {
     public class MainViewModel
     {

@@ -1,4 +1,5 @@
 ﻿using RockBoxPlaylistTool;
+using RockBoxPlaylistTool.Data;
 
 namespace RockBoxPlaylistToolTest
 {
@@ -8,7 +9,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void CheckFileMp3Tags()
         {
-            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\MP3File.mp3";
+            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\MP3File.mp3";
             var tfile = TagLib.File.Create(filepath);
             var song = new SongData();
             var tag = tfile.Tag;
@@ -26,7 +27,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void CheckFileFlacTags()
         {
-            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\FLACFile.flac";
+            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\FLACFile.flac";
             var tfile = TagLib.File.Create(filepath);
             var song = new SongData();
             var tag = tfile.Tag;
@@ -43,7 +44,7 @@ namespace RockBoxPlaylistToolTest
         [TestMethod]
         public void OpenAsFile()
         {
-            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Music\MP3File.mp3";
+            var filepath = @"C:\Users\creat\Documents\Projects\RockBoxPlaylistTool\RockBoxPlaylistTool\Sample\MP3File.mp3";
             var file = new FileInfo(filepath);
             Assert.IsNotNull(file);
             Assert.IsTrue(file.Exists);

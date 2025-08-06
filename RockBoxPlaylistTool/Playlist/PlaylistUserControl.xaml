@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="RockBoxPlaylistTool.Playlist.PlaylistUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RockBoxPlaylistTool.Data"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid x:Name="MusicGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="txtPlaylistPath" Grid.Column="0" Grid.Row="0" Margin="5" Text="{Binding Path}" FontSize="28" Background="White"/>
+        <Button x:Name="btnBrowsePlaylist" Grid.Column="1" Grid.Row="0" Margin="5" Command="{Binding BrowseCommand}">
+                <Image Source="/images/browse.png"/>
+        </Button>
+        <ScrollViewer Grid.ColumnSpan="2" Grid.Row="1" Background="#E3F2FF">
+            <ListBox ItemsSource="{Binding Items}"
+                     local:MultiSelectBehavior.SelectedItems="{Binding SelectedItems}" 
+                     SelectedItem="{Binding Selected}" 
+                     SelectionMode="Single">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </ScrollViewer>       
+    </Grid>
+</UserControl>

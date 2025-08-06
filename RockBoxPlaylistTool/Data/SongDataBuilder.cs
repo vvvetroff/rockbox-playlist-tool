@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RockBoxPlaylistTool
+namespace RockBoxPlaylistTool.Data
 {
     public class SongDataBuilder
     {
@@ -16,7 +16,15 @@ namespace RockBoxPlaylistTool
             var file = new FileInfo(path);
             if (!file.Exists) { return null; }
 
-            var tfile = TagLib.File.Create(path);
+            TagLib.File tfile = null;
+            try
+            {
+                tfile = TagLib.File.Create(path);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
             var tag = tfile.Tag; // alias
             var song = new SongData() { Path = path };
             if (tag != null)
