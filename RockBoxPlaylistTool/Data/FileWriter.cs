@@ -14,12 +14,9 @@ namespace RockBoxPlaylistTool.Data
         {
             if (string.IsNullOrEmpty(path) || items == null) { return false; }
 
-            //FileStream writeStream = null;
-            //StreamWriter writer = null;
-
-            FileInfo fileInfo = new(path);
             try
             {
+                FileInfo fileInfo = new(path);
                 using FileStream writeStream = new(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write);
                 using StreamWriter writer = new(writeStream);
                 foreach (SongData item in items)
