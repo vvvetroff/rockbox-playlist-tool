@@ -53,7 +53,7 @@ namespace RockBoxPlaylistTool.Music
             {
                 ConfigurationManager.AppSettings[FolderNames.MusicDir] = folderBrowserDialog.SelectedPath;
             }
-            path = folderBrowserDialog.SelectedPath;
+            Path = folderBrowserDialog.SelectedPath;
             items.Clear();
             items.AddRange(SongCollectionBuilder.Build(path));
         }

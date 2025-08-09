@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace RockBoxPlaylistTool.Main
 {
-    public class MainViewModel
+    public class MainViewModel : BindableBase
     {
         private MusicViewModel musicViewModel;
         private PlaylistViewModel playlistViewModel;
@@ -20,6 +20,8 @@ namespace RockBoxPlaylistTool.Main
         private DelegateCommand moveSongDownCommand;
         private DelegateCommand savePlaylistCommand;
         private IFileWriter fileWriter;
+        private string notificationText;
+        private bool isError;
         public MainViewModel(IFileWriter fileWriter)
         {
             musicViewModel = new MusicViewModel();
@@ -32,8 +34,18 @@ namespace RockBoxPlaylistTool.Main
             this.fileWriter = fileWriter;
             musicViewModel.PropertyChanged += MusicViewModel_PropertyChanged;
             playlistViewModel.PropertyChanged += PlaylistViewModel_PropertyChanged;
+            NotificationText = "Ready";
         }
-
+        public string NotificationText
+        { 
+            get { return notificationText; }
+            set { SetProperty(ref notificationText, value); }
+        }
+        public bool IsError
+        { 
+            get { return isError; }
+            set { SetProperty(ref isError, value); }
+        }
         private void PlaylistViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Selected")
@@ -115,7 +127,17 @@ namespace RockBoxPlaylistTool.Main
         }
         public void saveExecute()
         {
-            fileWriter.SavePlaylist(playlistViewModel.Path, playlistViewModel.Items);
+            var result = fileWriter.SavePlaylist(playlistViewModel.Path, playlistViewModel.Items);
+            if (result)
+            {
+                NotificationText = "Success";
+                IsError = false;
+            }
+            else
+            {
+                NotificationText = "Error: Failure to save playlist";
+                IsError = true;
+            }
         }
     }
 }

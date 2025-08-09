@@ -27,7 +27,7 @@ namespace RockBoxPlaylistTool.Main
         public MainWindow()
         {
             InitializeComponent();
-            mainViewModel = new MainViewModel(null);
+            mainViewModel = new MainViewModel(new FileWriter());
             DataContext = mainViewModel;
 
             // HACK: remove later
