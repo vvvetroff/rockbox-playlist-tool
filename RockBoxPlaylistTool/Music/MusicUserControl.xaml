@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RockBoxPlaylistTool"
+             xmlns:localData="clr-namespace:RockBoxPlaylistTool.Data"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="MusicGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -15,20 +17,35 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="txtMusicPath" Grid.Column="0" Margin="5" Text="{Binding Path}" FontSize="28" Background="White"/>
+
+        <TextBlock x:Name="txtMusicPath" Grid.Row="0" Grid.Column="0" Margin="5" Text="{Binding Path}" FontSize="28" Background="White"/>
         <Button x:Name="btnBrowseMusic" Grid.Column="1" Margin="5" Command="{Binding BrowseCommand}">
-                <Image Source="/images/browse.png"/>
+            <Image Source="/images/browse.png"/>
         </Button>
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Background="#E3F2FF">
-            <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}" SelectionMode="Extended">
+
+        <AdornerDecorator Grid.Row="1" Grid.Column="0">
+            <TextBox x:Name="txtSearch" Width="{Binding ActualWidth, ElementName=txtMusicPath}" Margin="5" Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="20">
+              <localData:WatermarkService.Watermark>
+                    <TextBlock>Search...</TextBlock>
+              </localData:WatermarkService.Watermark>
+            </TextBox>
+        </AdornerDecorator>
+        <Image Source="/images/search.png" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF">
+            <ListBox ItemsSource="{Binding ItemsView}" 
+                     SelectedItem="{Binding Selected}" 
+                     SelectionMode="Extended">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                        <StackPanel Orientation="Vertical" 
+                                    IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                        <Setter Property="IsSelected" 
+                                Value="{Binding IsSelected}"/>
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>

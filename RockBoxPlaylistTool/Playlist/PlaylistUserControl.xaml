@@ -9,6 +9,7 @@
     <Grid x:Name="MusicGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -20,17 +21,48 @@
         <Button x:Name="btnBrowsePlaylist" Grid.Column="1" Grid.Row="0" Margin="5" Command="{Binding BrowseCommand}">
                 <Image Source="/images/browse.png"/>
         </Button>
-        <ScrollViewer Grid.ColumnSpan="2" Grid.Row="1" Background="#E3F2FF">
-            <ListBox ItemsSource="{Binding Items}"
+
+        <AdornerDecorator Grid.Row="1" Grid.Column="0">
+            <TextBox x:Name="txtSearch" Width="{Binding ActualWidth, ElementName=txtPlaylistPath}" Margin="5" Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="20">
+              <local:WatermarkService.Watermark>
+                    <TextBlock>Search...</TextBlock>
+              </local:WatermarkService.Watermark>
+            </TextBox>
+        </AdornerDecorator>
+        <Image Source="/images/search.png" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <!--
+        <ScrollViewer Grid.ColumnSpan="2" Grid.Row="2" Background="#E3F2FF">
+            <ListBox ItemsSource="{Binding ItemsView}"
                      local:MultiSelectBehavior.SelectedItems="{Binding SelectedItems}" 
                      SelectedItem="{Binding Selected}" 
-                     SelectionMode="Single">
+                     SelectionMode="Extended">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+                        <StackPanel Orientation="Vertical" 
+                                    IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
+        </ScrollViewer>  
+        -->
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF">
+            <ListBox ItemsSource="{Binding ItemsView}" 
+                     SelectedItem="{Binding Selected}" 
+                     SelectionMode="Extended">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" 
+                                    IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="IsSelected" 
+                                Value="{Binding IsSelected}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
         </ScrollViewer>       
+
     </Grid>
 </UserControl>

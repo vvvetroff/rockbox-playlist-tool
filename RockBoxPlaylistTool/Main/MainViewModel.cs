@@ -2,6 +2,7 @@
 using RockBoxPlaylistTool.Music;
 using RockBoxPlaylistTool.Playlist;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -115,15 +116,31 @@ namespace RockBoxPlaylistTool.Main
         }
         public void removeExecute()
         {
-            playlistViewModel.RemoveSong(playlistViewModel.Selected);
+            var newItems = new List<SongData>(playlistViewModel.Items);
+            foreach (var item in newItems)
+            {
+                if (!item.IsSelected) { continue; }
+                playlistViewModel.RemoveSong(item);
+            }
         }
         public void moveUpExecute()
         {
-            playlistViewModel.MoveSongUp(playlistViewModel.Selected);
+            var newItems = new List<SongData>(playlistViewModel.Items);
+            foreach (var item in newItems)
+            {
+                if (!item.IsSelected) { continue; }
+                if (!playlistViewModel.MoveSongUp(item)) { return; }
+            }
         }
         public void moveDownExecute()
         {
-            playlistViewModel.MoveSongDown(playlistViewModel.Selected);
+            var newItems = new List<SongData>(playlistViewModel.Items);
+            for (int i = newItems.Count - 1; i >= 0; i--)
+            {
+                var item = newItems[i];
+                if (!item.IsSelected) { continue; }
+                if (!playlistViewModel.MoveSongDown(item)) { return; }
+            }
         }
         public void saveExecute()
         {
