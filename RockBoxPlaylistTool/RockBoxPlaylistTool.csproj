@@ -15,7 +15,12 @@
     <None Remove="images\left.png" />
     <None Remove="images\right.png" />
     <None Remove="images\save.png" />
+    <None Remove="images\search.png" />
     <None Remove="images\up.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\search.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +45,8 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />
+    <PackageReference Include="System.Reactive.Core" Version="6.0.1" />
+    <PackageReference Include="System.Reactive.Linq" Version="6.0.1" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
   </ItemGroup>
 
