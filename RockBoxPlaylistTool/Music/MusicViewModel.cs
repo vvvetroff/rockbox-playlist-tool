@@ -104,7 +104,10 @@ namespace RockBoxPlaylistTool.Music
             }
             Path = folderBrowserDialog.SelectedPath;
             items.Clear();
-            items.AddRange(SongCollectionBuilder.Build(path));
+            itemsView.Clear();
+            var newItems = SongCollectionBuilder.Build(path);
+            items.AddRange(newItems);
+            itemsView.AddRange(newItems);
         }
     }
 }

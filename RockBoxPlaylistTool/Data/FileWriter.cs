@@ -17,12 +17,20 @@ namespace RockBoxPlaylistTool.Data
             try
             {
                 FileInfo fileInfo = new(path);
-                using FileStream writeStream = new(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write);
-                using StreamWriter writer = new(writeStream);
-                foreach (SongData item in items)
+                if (fileInfo.Exists)
                 {
-                    var rPath = Helper.WinToRockPath(item.Path);
-                    writer.WriteLine(rPath);
+                    System.IO.File.Delete(fileInfo.FullName);
+                }
+                using (FileStream writeStream = new FileStream(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Write))
+                {
+                    using (StreamWriter writer = new StreamWriter(writeStream))
+                    {
+                        foreach (SongData item in items)
+                        {
+                            var rPath = Helper.WinToRockPath(item.Path);
+                            writer.WriteLine(rPath);
+                        }
+                    }
                 }
             }
             catch { return false; }

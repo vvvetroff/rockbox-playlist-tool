@@ -144,7 +144,7 @@ namespace RockBoxPlaylistTool.Main
         }
         public void saveExecute()
         {
-            var result = fileWriter.SavePlaylist(playlistViewModel.Path, playlistViewModel.Items);
+            var result = fileWriter.SavePlaylist(System.IO.Path.Combine(playlistViewModel.Path, playlistViewModel.FilenameWithExtension), playlistViewModel.Items);
             if (result)
             {
                 NotificationText = "Success";

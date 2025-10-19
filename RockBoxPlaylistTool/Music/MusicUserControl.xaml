@@ -32,10 +32,11 @@
         </AdornerDecorator>
         <Image Source="/images/search.png" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF">
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF" VerticalScrollBarVisibility="Auto">
             <ListBox ItemsSource="{Binding ItemsView}" 
                      SelectedItem="{Binding Selected}" 
-                     SelectionMode="Extended">
+                     SelectionMode="Extended"
+                     Height="1000">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" 

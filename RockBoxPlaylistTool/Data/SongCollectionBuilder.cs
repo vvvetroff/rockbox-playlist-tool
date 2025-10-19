@@ -26,6 +26,34 @@ namespace RockBoxPlaylistTool.Data
             }
             return collection;
         }
+        public static ObservableCollection<SongData> BuildFromFile(string path)
+        {
+            ObservableCollection<SongData> collection = [];
+            if (string.IsNullOrEmpty(path)) { return collection; }
+
+            try
+            {
+                FileInfo fileInfo = new FileInfo(path);
+                using (FileStream readStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    using (StreamReader reader = new StreamReader(readStream))
+                    {
+                        string file;
+                        while (reader.Peek() >= 0) {
+                            file = Helper.RockToWinPath(reader.ReadLine());
+                            var songData = SongDataBuilder.Build(file);
+                            if (songData != null)
+                            {
+                                collection.Add(SongDataBuilder.Build(file));
+                            }
+                        }
+                    }
+                }
+            }
+            catch { return []; }
+
+            return collection;
+        }
     }
 }
 

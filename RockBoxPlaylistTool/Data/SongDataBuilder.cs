@@ -13,27 +13,29 @@ namespace RockBoxPlaylistTool.Data
         {
             if (string.IsNullOrEmpty(path)) { return null; }
 
-            var file = new FileInfo(path);
-            if (!file.Exists) { return null; }
+            var fileInfo = new FileInfo(path);
+            if (!fileInfo.Exists) { return null; }
 
-            TagLib.File tfile = null;
+            TagLib.File file;
             try
             {
-                tfile = TagLib.File.Create(path);
+                file = TagLib.File.Create(path);
             }
-            catch (Exception ex)
+            catch (TagLib.UnsupportedFormatException)
             {
                 return null;
             }
-            var tag = tfile.Tag; // alias
-            var song = new SongData() { Path = path };
+            if (file.Properties.MediaTypes != TagLib.MediaTypes.Audio) { return null; }
+
+            var tag = file.Tag; // alias
+            var songData = new SongData() { Path = path };
             if (tag != null)
             {
-                song.Title = tag.Title;
-                song.Album = tag.Album;
-                song.Artist = tag.Performers.FirstOrDefault();
+                songData.Title = tag.Title;
+                songData.Album = tag.Album;
+                songData.Artist = tag.Performers.FirstOrDefault();
             }
-            return song;
+            return songData;
         }
     }
 }

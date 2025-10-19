@@ -8,23 +8,30 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Threading;
+using WinForms = System.Windows.Forms;
 
 namespace RockBoxPlaylistTool.Playlist
 {
     public class PlaylistViewModel : BindableBase
     {
         private string path;
+        private string filename;
         private ObservableCollection<SongData> items;
         private ObservableCollection<SongData> itemsView;
         private SongData selected;
+        private DelegateCommand browseCommand;
+        private DelegateCommand browseFileCommand;
         private string searchQuery;
         private Dispatcher dispatcher;
         public PlaylistViewModel()
         { 
+            path = ConfigurationManager.AppSettings[FolderNames.PlaylistsDir];
+            browseCommand = new DelegateCommand(browseExecute);
+            browseFileCommand = new DelegateCommand(browseFileExecute);
             items = new ObservableCollection<SongData>();
             itemsView = [.. items];
-            path = ConfigurationManager.AppSettings[FolderNames.PlaylistsDir];
             Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                 h => this.PropertyChanged += h,
                 h => this.PropertyChanged -= h)
@@ -37,6 +44,15 @@ namespace RockBoxPlaylistTool.Playlist
         { 
             get { return path; } 
             set { SetProperty(ref path, value); } 
+        }
+        public string Filename
+        {
+            get { return filename; } 
+            set { SetProperty(ref filename, value); } 
+        }
+        public string FilenameWithExtension
+        {
+            get { return filename + ".m3u8"; }
         }
         public ObservableCollection<SongData> Items 
         { 
@@ -57,6 +73,12 @@ namespace RockBoxPlaylistTool.Playlist
         { 
             get { return searchQuery; } 
             set { SetProperty(ref searchQuery, value); } 
+        }
+        public ICommand BrowseCommand {
+            get { return browseCommand; }
+        }
+        public ICommand BrowseFileCommand {
+            get { return browseFileCommand; }
         }
         public bool AppendSong(SongData song)
         {
@@ -123,6 +145,38 @@ namespace RockBoxPlaylistTool.Playlist
             }
             itemsView.Clear();
             itemsView.AddRange(newItems);
+        }
+        private void browseExecute()
+        {
+            var folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.SelectedPath = path;
+            folderBrowserDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+
+            var result = folderBrowserDialog.ShowDialog();
+            if (result == WinForms.DialogResult.OK || result == WinForms.DialogResult.Yes)
+            {
+                ConfigurationManager.AppSettings[FolderNames.PlaylistsDir] = folderBrowserDialog.SelectedPath;
+            }
+            Path = folderBrowserDialog.SelectedPath;
+        }
+        private void browseFileExecute()
+        {
+            var fileBrowserDialog = new OpenFileDialog();
+            fileBrowserDialog.Filter = "m3u8 files (*.m3u8)|*.m3u8";
+            fileBrowserDialog.InitialDirectory = path;
+
+            var result = fileBrowserDialog.ShowDialog();
+            if (result == WinForms.DialogResult.OK || result == WinForms.DialogResult.Yes)
+            {
+                ConfigurationManager.AppSettings[FolderNames.PlaylistsDir] = System.IO.Path.GetDirectoryName(fileBrowserDialog.FileName);
+                Path = System.IO.Path.GetDirectoryName(fileBrowserDialog.FileName);
+                Filename = System.IO.Path.GetFileName(fileBrowserDialog.FileName).Replace(".m3u8", "");
+                items.Clear();
+                itemsView.Clear();
+                var newItems = SongCollectionBuilder.BuildFromFile(fileBrowserDialog.FileName);
+                items.AddRange(newItems);
+                itemsView.AddRange(newItems);
+            }
         }
     }
 }
