@@ -32,13 +32,14 @@
         </AdornerDecorator>
         <Image Source="/images/search.png" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF" VerticalScrollBarVisibility="Auto">
+        <!--<ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF" VerticalScrollBarVisibility="Auto">-->
             <ListBox ItemsSource="{Binding ItemsView}" 
                      SelectedItem="{Binding Selected}" 
                      SelectionMode="Extended"
-                     Height="1000">
+                     Grid.Row="2" Grid.ColumnSpan="2">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
+                        <!--<VirtualizingStackPanel/>-->
                         <StackPanel Orientation="Vertical" 
                                     IsItemsHost="True"/>
                     </ItemsPanelTemplate>
@@ -50,6 +51,6 @@
                     </Style>
                 </ListBox.ItemContainerStyle>
             </ListBox>
-        </ScrollViewer>       
+        <!--</ScrollViewer>-->
     </Grid>
 </UserControl>
