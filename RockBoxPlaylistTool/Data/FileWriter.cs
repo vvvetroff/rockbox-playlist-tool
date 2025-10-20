@@ -12,7 +12,7 @@ namespace RockBoxPlaylistTool.Data
     {
         public bool SavePlaylist(string path, ObservableCollection<SongData> items)
         {
-            if (string.IsNullOrEmpty(path) || items == null) { return false; }
+            if (string.IsNullOrEmpty(path) || items == null || items.Count == 0 || path.Contains("/.m3u8")) { return false; }
 
             try
             {
