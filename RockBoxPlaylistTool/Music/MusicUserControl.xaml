@@ -18,39 +18,57 @@
             <ColumnDefinition Width="75"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="txtMusicPath" Grid.Row="0" Grid.Column="0" Margin="5" Text="{Binding Path}" FontSize="28" Background="White"/>
-        <Button x:Name="btnBrowseMusic" Grid.Column="1" Margin="5" Command="{Binding BrowseCommand}">
+        <TextBlock 
+            x:Name="txtMusicPath" 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Margin="5" 
+            Text="{Binding Path}" 
+            FontSize="28" 
+            Background="White"/>
+        <Button 
+            x:Name="btnBrowseMusic" 
+            Grid.Column="1" 
+            Margin="5" 
+            Command="{Binding BrowseCommand}">
             <Image Source="/images/browse.png"/>
         </Button>
 
-        <AdornerDecorator Grid.Row="1" Grid.Column="0">
-            <TextBox x:Name="txtSearch" Width="{Binding ActualWidth, ElementName=txtMusicPath}" Margin="5" Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontSize="20">
+        <AdornerDecorator Grid.Row="1" 
+                          Grid.Column="0">
+            <TextBox 
+                x:Name="txtSearch" 
+                Width="{Binding ActualWidth, ElementName=txtMusicPath}" 
+                Margin="5" 
+                Text="{Binding SearchQuery,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                FontSize="20">
               <localData:WatermarkService.Watermark>
                     <TextBlock>Search...</TextBlock>
               </localData:WatermarkService.Watermark>
             </TextBox>
         </AdornerDecorator>
-        <Image Source="/images/search.png" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        <Image
+            Source="/images/search.png" 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            Margin="5"/>
 
-        <!--<ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" Background="#E3F2FF" VerticalScrollBarVisibility="Auto">-->
-            <ListBox ItemsSource="{Binding ItemsView}" 
-                     SelectedItem="{Binding Selected}" 
-                     SelectionMode="Extended"
-                     Grid.Row="2" Grid.ColumnSpan="2">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <!--<VirtualizingStackPanel/>-->
-                        <StackPanel Orientation="Vertical" 
-                                    IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="IsSelected" 
-                                Value="{Binding IsSelected}"/>
-                    </Style>
-                </ListBox.ItemContainerStyle>
-            </ListBox>
-        <!--</ScrollViewer>-->
+        <ListBox 
+            ItemsSource="{Binding ItemsView}" 
+            SelectedItem="{Binding Selected}" 
+            SelectionMode="Extended" 
+            Grid.Row="2" 
+            Grid.ColumnSpan="2"> 
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 </UserControl>
